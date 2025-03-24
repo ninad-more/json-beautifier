@@ -10,11 +10,16 @@ const JsonBeautifier = () => {
 
   useEffect(() => {
     try {
+      if (state.input.trim() === "") {
+        dispatch({ type: "ENTER_OUTPUT_JSON", payload: "" });
+        return;
+      }
       const parsedJson = JSON.parse(state.input);
+      console.log(parsedJson);
       const beautifiedJson = JSON.stringify(parsedJson, null, 2);
       dispatch({ type: "ENTER_OUTPUT_JSON", payload: beautifiedJson });
     } catch (error) {
-      dispatch({ type: "ENTER_OUTPUT_JSON", payload: "Enter input json..." });
+      dispatch({ type: "ENTER_OUTPUT_JSON", payload: "Error occured..." });
     }
   }, [state.input, dispatch]);
 
